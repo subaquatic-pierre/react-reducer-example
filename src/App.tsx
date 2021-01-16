@@ -67,7 +67,7 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <h1>Reducer practice</h1>
+      <h1>React - Typescript useReducer Example</h1>
       <p>Add text</p>
       <input
         onChange={(e) => {
