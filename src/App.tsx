@@ -30,8 +30,10 @@ const reducer = (state: IState, action: IAction): IState => {
       };
 
     case actionTypes.REMOVE_ITEM:
-      state.items.pop();
-      return { ...state };
+      return {
+        ...state,
+        items: state.items.filter((item) => item.index !== state.items.length),
+      };
 
     default:
       throw new Error("Type unknown in reducer");
