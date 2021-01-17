@@ -1,5 +1,5 @@
 import React from "react";
-import { IState, initialState } from "./index";
+import { IState, Context } from "./index";
 
 export interface IItem {
   text: string;
@@ -11,12 +11,12 @@ enum actionTypes {
   REMOVE_ITEM = "REMOVE_ITEM",
 }
 
-interface IAction {
+export interface IAction {
   type: actionTypes;
   data?: any;
 }
 
-const reducer = (state: IState, action: IAction): IState => {
+export const reducer = (state: IState, action: IAction): IState => {
   switch (action.type) {
     case actionTypes.ADD_ITEM:
       const item: IItem = {
@@ -54,7 +54,7 @@ const Item: React.FC<ItemProps> = ({ text, index }: IItem) => {
 };
 
 const App: React.FC = () => {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
+  const { state, dispatch } = React.useContext(Context);
   const [inputValue, setInputValue] = React.useState("");
 
   const handleAddClick = () => {

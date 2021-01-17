@@ -1,6 +1,6 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import ReactDOM from "react-dom";
-import App, { IItem } from "./App";
+import App, { IItem, IAction, reducer } from "./App";
 
 export interface IState {
   items: IItem[];
@@ -10,13 +10,25 @@ export const initialState: IState = {
   items: [{ index: 1, text: "First item" }],
 };
 
-const Context = React.createContext(initialState);
+interface IContext {
+  state: IState;
+  dispatch: Dispatch<IAction>;
+}
+
+export const Context = React.createContext({} as IContext);
+
+const Index: React.FC = () => {
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+  return (
+    <Context.Provider value={{ state, dispatch }}>
+      <App />
+    </Context.Provider>
+  );
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <Context.Provider value={initialState}>
-      <App />
-    </Context.Provider>
+    <Index />
   </React.StrictMode>,
   document.getElementById("root")
 );
